@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroPrime | Contact Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES & RESET ===== */
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #d4af37;
+            --accent-light: #e8c966;
+            --accent-dark: #b8941f;
+            --light: #f5f7fa;
+            --dark: #050505;
+            --transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.6);
+            --glow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1200 100%);
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ===== PREMIUM FORM CONTAINER ===== */
+        .form-container {
+            width: 100%;
+            max-width: 800px;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.1) 0%, 
+                rgba(26, 26, 26, 0.9) 50%, 
+                rgba(10, 10, 10, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: var(--shadow), var(--glow);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            transition: 0.8s;
+        }
+
+        .form-container:hover::before {
+            left: 100%;
+        }
+
+        /* ===== FORM HEADER ===== */
+        .form-header {
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.2) 0%, 
+                rgba(184, 148, 31, 0.15) 50%, 
+                rgba(212, 175, 55, 0.1) 100%);
+            padding: 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .form-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+        }
+
+        .form-logo i {
+            margin-right: 15px;
+            font-size: 2.8rem;
+            animation: crownFloat 3s ease-in-out infinite;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .form-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ===== FORM CONTENT ===== */
+        .form-content {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--accent);
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            background: rgba(10, 10, 10, 0.9);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+        }
+
+        /* ===== FORM FOOTER ===== */
+        .form-footer {
+            padding: 30px 40px;
+            background: rgba(10, 10, 10, 0.7);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            text-align: center;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: var(--primary);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-heavy), var(--glow);
+            letter-spacing: 2px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes crownFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(5deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .form-container {
+                border-radius: 15px;
+            }
+            
+            .form-header {
+                padding: 30px 20px;
+            }
+            
+            .form-content {
+                padding: 30px 20px;
+            }
+            
+            .form-footer {
+                padding: 25px 20px;
+            }
+            
+            .form-logo {
+                font-size: 2rem;
+            }
+            
+            .form-logo i {
+                font-size: 2.3rem;
+            }
+            
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .form-logo {
+                font-size: 1.8rem;
+            }
+            
+            .form-logo i {
+                font-size: 2rem;
+                margin-right: 10px;
+            }
+            
+            .form-title {
+                font-size: 1.3rem;
+            }
+            
+            .form-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-logo">
+                <i class="fas fa-crown"></i> MetroPrime
+            </div>
+            <h1 class="form-title">Luxury Property Consultation</h1>
+            <p class="form-subtitle">Complete this form to schedule your personalized consultation with our luxury real estate specialists</p>
+        </div>
+        
+        <form class="form-content" id="premium-contact-form">
+            <div class="form-group">
+                <label class="form-label" for="name">Full Name *</label>
+                <input type="text" class="form-control" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="email">Email Address *</label>
+                <input type="email" class="form-control" id="email" name="email" required placeholder="your.email@example.com">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="phone">Phone Number *</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required placeholder="+1 (555) 123-4567">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="property-type">Property Type Interest</label>
+                <select class="form-control" id="property-type" name="property-type">
+                    <option value="">Select property type</option>
+                    <option value="penthouse">Penthouse</option>
+                    <option value="villa">Luxury Villa</option>
+                    <option value="estate">Country Estate</option>
+                    <option value="apartment">Luxury Apartment</option>
+                    <option value="waterfront">Waterfront Property</option>
+                    <option value="commercial">Commercial Property</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="budget">Budget Range</label>
+                <select class="form-control" id="budget" name="budget">
+                    <option value="">Select budget range</option>
+                    <option value="1-2m">$1M - $2M</option>
+                    <option value="2-5m">$2M - $5M</option>
+                    <option value="5-10m">$5M - $10M</option>
+                    <option value="10-20m">$10M - $20M</option>
+                    <option value="20m+">$20M+</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="location">Preferred Location</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="City, Region, or Country">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="message">Additional Requirements</label>
+                <textarea class="form-control" id="message" name="message" placeholder="Tell us about your specific requirements, timeline, or any special considerations..."></textarea>
+            </div>
+        </form>
+        
+        <div class="form-footer">
+            <button type="submit" form="premium-contact-form" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Submit Consultation Request
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Form submission handling
+        document.getElementById('premium-contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            
+            // Simple validation
+            if (!name || !email || !phone) {
+                showNotification('Please fill in all required fields.', 'error');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                showNotification('Thank you for your inquiry! Our luxury real estate specialist will contact you within 24 hours.', 'success');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Enhanced form interactions
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+        });
+
+        // Notification function
+        function showNotification(message, type) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 20px;
+                background: ${type === 'success' ? 'rgba(34, 197, 94, 0.9)' : 'rgba(239, 68, 68, 0.9)'};
+                color: white;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                max-width: 400px;
+                animation: slideIn 0.3s ease-out;
+                font-weight: 500;
+                backdrop-filter: blur(10px);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 5 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 5000);
+        }
+
+        // Add CSS for notification animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        console.log('Premium real estate form loaded successfully! 🏰');
+    </script>
+</body>
+</html>
